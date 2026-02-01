@@ -10,4 +10,8 @@ function humanizeTaskDueDate(dueDate) {
   return dueDate ? dayjs(dueDate).format(DATE_FORMAT) : '';
 }
 
-export {getRandomArrayElement};
+function isTaskExpired(dueDate) {
+  return dueDate && dayjs().isAfter(dueDate, 'D');
+}
+
+export {getRandomArrayElement, humanizeTaskDueDate, isTaskExpired};
