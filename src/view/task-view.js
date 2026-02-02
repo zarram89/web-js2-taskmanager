@@ -70,13 +70,22 @@ function createTaskTemplate(task) {
 
 export default class TaskView extends AbstractView {
   #task = null;
+  #handleEditClick = null;
 
-  constructor({task}) {
+  constructor({task, onEditClick}) {
     super();
     this.#task = task;
+    this.#handleEditClick = onEditClick;
+
+    this.element.addEventListener('click', this.#editClickHandler)
   }
 
   get template() {
     return createTaskTemplate(this.#task);
   }
+
+  #editClickHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleEditClick();
+  };
 }
