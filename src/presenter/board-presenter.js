@@ -42,9 +42,9 @@ export default class BoardPresenter {
     }
   };
 
-  #handleTaskChange = (updateTask) => {
-    this.#boardTasks = updateItem(this.#boardTasks, updateTask);
-    this.#taskPresenters.get(updateTask.id).init(updatedTask);
+  #handleTaskChange = (updatedTask) => {
+    this.#boardTasks = updateItem(this.#boardTasks, updatedTask);
+    this.#taskPresenters.get(updatedTask.id).init(updatedTask);
   };
 
   #renderSort() {
@@ -54,6 +54,7 @@ export default class BoardPresenter {
   #renderTask(task) {
     const taskPresenter = new TaskPresenter({
       taskListContainer: this.#taskListComponent.element,
+      onDataChange: this.#handleTaskChange
     });
     taskPresenter.init(task);
     this.#taskPresenters.set(task.id, taskPresenter);
