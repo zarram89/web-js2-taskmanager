@@ -5,6 +5,7 @@ import TaskListView from '../view/task-list-view.js';
 import LoadMoreButtonView from '../view/load-more-button-view.js';
 import NoTaskView from '../view/no-task-view.js';
 import TaskPresenter from './task-presenter.js';
+import {updateItem} from '../utils/common.js';
 
 const TASK_COUNT_PER_STEP = 8;
 
@@ -39,6 +40,11 @@ export default class BoardPresenter {
     if (this.#renderedTaskCount >= this.#boardTasks.length) {
       remove(this.#loadMoreButtonComponent);
     }
+  };
+
+  #handleTaskChange = (updateTask) => {
+    this.#boardTasks = updateItem(this.#boardTasks, updateTask);
+    this.#taskPresenters.get(updateTask.id).init(updatedTask);
   };
 
   #renderSort() {
